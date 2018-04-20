@@ -72,6 +72,7 @@ void *Servidor::hiloConexion(void *socket) {
     }
 
     while ((read_size = recv(sockPtr, client_message, 1000, 0)) > 0) {
+        //Lee el cliente.
         limpio = cleanMensaje(client_message);
 
         //Repetidor de mensajes
