@@ -8,6 +8,25 @@
 
 class MemoryManage {
 
+public:
+public:
+    static MemoryManage& Instancia();
+
+    MemoryManage(const MemoryManage&) =             delete;
+
+    MemoryManage& operator = (const MemoryManage&)= delete;
+
+    int TomarMemoria(int espacio);
+
+    bool MemoriaLLena(int referencia);
+
+
+
+private:
+    MemoryManage ();
+    int memoria;
+
+
 };
 
 

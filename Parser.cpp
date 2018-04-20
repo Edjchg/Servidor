@@ -8,9 +8,14 @@
 #include "ListaSimple.h"
 using json = nlohmann::json;
 
-ListaSimple listaSimple;
-
+ListaSimple<string> listaSimple;
+/**
+ * Convierte el json a objeto linea.
+ * @param objeto
+ */
 void Parser::convertToObject(json objeto){
+
+
 
     struct nodo {
         std::string tipo;
@@ -20,8 +25,8 @@ void Parser::convertToObject(json objeto){
         std::string espacio;
     };
     for (int posicion = 0; posicion < sizeof(objeto); posicion++){
-        listaSimple.insertarFinal(objeto["tipo"].get<std::string>(),objeto["etiqueta"]..get<std::string>(),
-                objeto["valor"].get<std::string>(),"",objeto["espacio"]..get<std::string>());
+        listaSimple.insertarFinal(objeto["tipo"].get<std::string>(),objeto["etiqueta"].get<std::string>(),
+                objeto["valor"].get<std::string>(),"",objeto["espacio"].get<std::string>());
     }
 
 
