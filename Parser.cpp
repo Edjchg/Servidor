@@ -13,7 +13,7 @@ ListaSimple<string> listaSimple;
  * Convierte el json a objeto linea.
  * @param objeto
  */
-void Parser::convertToObject(json objeto){
+ListaSimple<string> Parser::convertToObject(json objeto){
 
 
 
@@ -29,5 +29,12 @@ void Parser::convertToObject(json objeto){
                 objeto["valor"].get<std::string>(),"",objeto["espacio"].get<std::string>());
     }
 
+return listaSimple;
+}
+
+json Parser::StringToJson(string objetoJson) {
+        auto j2 = R"(objetoJson)"_json;
+
+        return j2;
 
 }

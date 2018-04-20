@@ -3,6 +3,8 @@
 //
 
 #include "Servidor.h"
+#include "MemoryManage.h"
+#include "Parser.h"
 
 /**
  * Inicializa el servidor
@@ -59,6 +61,10 @@ std::string Servidor::cleanMensaje(char* men) {
  * @return
  */
 void *Servidor::hiloConexion(void *socket) {
+    MemoryManage memoryManage;
+    Parser parser;
+    ListaSimple<string> listaSimple;
+
     int sockPtr = *(int *) socket;
     int read_size;
     char client_message[1000];
@@ -74,7 +80,13 @@ void *Servidor::hiloConexion(void *socket) {
 
     while ((read_size = recv(sockPtr, client_message, 1000, 0)) > 0) {
         //Lee el cliente.
+
+
+
         limpio = cleanMensaje(client_message);
+        //parser.convertToObject(parser.StringToJson(limpio));
+
+        memoryManage.AsiganorMemoria(parser.convertToObject(parser.StringToJson(limpio))).ToJson().dump();
 
         //Repetidor de mensajes
 
@@ -82,12 +94,13 @@ void *Servidor::hiloConexion(void *socket) {
         write(sockPtr, limpio.data(), 1000); // contesta
 
         //Colocar logica para tratar mensajes recibidoa
-    }
 
-    if (read_size == 0) {
-        std::cout << "Error: Cliente desconectado" << std::endl;
-        fflush(stdout);
-    } else if (read_size == -1) {
-        std::cout << "Error: No se recibio un dato valido" << std::endl;
+
+        if (read_size == 0) {
+            std::cout << "Error: Cliente desconectado" << std::endl;
+            fflush(stdout);
+        } else if (read_size == -1) {
+            std::cout << "Error: No se recibio un dato valido" << std::endl;
+        }
     }
 }

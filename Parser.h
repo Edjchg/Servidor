@@ -6,11 +6,14 @@
 #define SERVIDOR_PARSER_H
 
 #include "json.hpp"
+#include "ListaSimple.h"
 
 using json = nlohmann::json;
 
 class Parser {
-    void convertToObject( json );
+public:
+    ListaSimple<std::string> convertToObject(json );
+    json StringToJson(string);
 
 };
 

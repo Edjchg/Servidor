@@ -35,11 +35,13 @@ public:
     void editarPosicion(const TIPONODO &, const TIPONODO &);
     json ToJson();
 
-private:
+
     NodoSimple <TIPONODO> *primeroPtr;
     NodoSimple <TIPONODO> *ultimoPtr;
     NodoSimple <TIPONODO> *obtenerNuevoNodo(const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &);
 
+    template<typename TIPONODO>
+    NodoSimple<TIPONODO> *getPrimero();
 };
 //Constructor
 template <typename TIPONODO >
@@ -292,7 +294,10 @@ NodoSimple<TIPONODO> *ListaSimple<TIPONODO>::obtenerNuevoNodo(const TIPONODO &ti
     return new NodoSimple<TIPONODO>(tipo, etiqueta,valor, referencia, espacio);
 
 }
-
+template <typename TIPONODO>
+NodoSimple<TIPONODO> *ListaSimple<TIPONODO>::getPrimero(){
+    return primeroPtr;
+}
 
 /**
  * @brief Método que edita un NodoSimple en la posición deseada en la ListaSimple.
@@ -395,4 +400,5 @@ json ListaSimple <TIPONODO>::ToJson(){
     //cout<<total<<endl;
     return total;
 }
+
 #endif //PROYECTO1_LISTASIMPLE_H

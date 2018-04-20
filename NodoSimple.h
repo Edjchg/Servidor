@@ -96,8 +96,8 @@ template <typename TIPONODO> TIPONODO NodoSimple<TIPONODO> ::setEtiqueta(const T
     etiqueta = etiqueta1;
 }
 
-template <typename TIPONODO> TIPONODO NodoSimple<TIPONODO> :: setNumeroEnMemoria(const TIPONODO & numeroEnMemoria){
-
+template <typename TIPONODO> TIPONODO NodoSimple<TIPONODO> :: setNumeroEnMemoria(const TIPONODO & numeroEnMemoria1){
+    numeroEnMemoria = numeroEnMemoria1;
 }
 
 

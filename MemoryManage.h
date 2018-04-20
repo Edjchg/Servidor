@@ -5,25 +5,27 @@
 #ifndef SERVIDOR_MEMORYMANAGE_H
 #define SERVIDOR_MEMORYMANAGE_H
 
-
+#include "ListaSimple.h"
 class MemoryManage {
 
 public:
-public:
-    static MemoryManage& Instancia();
 
-    MemoryManage(const MemoryManage&) =             delete;
+    MemoryManage();
 
-    MemoryManage& operator = (const MemoryManage&)= delete;
+
+
+
 
     int TomarMemoria(int espacio);
+
+    ListaSimple AsiganorMemoria(ListaSimple );
 
     bool MemoriaLLena(int referencia);
 
 
 
-private:
-    MemoryManage ();
+
+
     int memoria;
 
 
