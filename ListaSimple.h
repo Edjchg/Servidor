@@ -24,8 +24,8 @@ class ListaSimple {
 public:
     ListaSimple();
     ~ListaSimple();
-    void instertarFrente(const TIPONODO &, const TIPONODO &, const TIPONODO &, const TIPONODO & ,const TIPONODO &);
-    void insertarFinal(const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO & );
+    void instertarFrente(const TIPONODO &, const TIPONODO &, const TIPONODO &, const TIPONODO & ,const TIPONODO &,const TIPONODO &);
+    void insertarFinal(const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &, const TIPONODO & );
     bool eliminarFrente();
     bool eliminarFinal();
     bool eliminarPosicion(const TIPONODO &);
@@ -38,7 +38,7 @@ public:
 
     NodoSimple <TIPONODO> *primeroPtr;
     NodoSimple <TIPONODO> *ultimoPtr;
-    NodoSimple <TIPONODO> *obtenerNuevoNodo(const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &);
+    NodoSimple <TIPONODO> *obtenerNuevoNodo(const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &, const TIPONODO &);
 
     template<typename TIPONODO>
     NodoSimple<TIPONODO> *getPrimero();
@@ -82,9 +82,9 @@ ListaSimple<TIPONODO>::~ListaSimple() {
  */
 template <typename TIPONODO>
 void ListaSimple<TIPONODO>::instertarFrente(const TIPONODO &tipo,const TIPONODO &etiqueta, const TIPONODO &valor,
-                                            const TIPONODO &referencia, const TIPONODO &espacio) {
+                                            const TIPONODO &referencia, const TIPONODO &espacio, const TIPONODO &memoria) {
 
-    NodoSimple<TIPONODO> *nuevoPtr = obtenerNuevoNodo( tipo ,etiqueta, valor, referencia, espacio );
+    NodoSimple<TIPONODO> *nuevoPtr = obtenerNuevoNodo( tipo ,etiqueta, valor, referencia, espacio, memoria );
     if (estaVacia()){
         primeroPtr = ultimoPtr = nuevoPtr;
 
@@ -109,8 +109,8 @@ void ListaSimple<TIPONODO>::instertarFrente(const TIPONODO &tipo,const TIPONODO 
 template <typename TIPONODO>
 
 void ListaSimple<TIPONODO>::insertarFinal(const TIPONODO &tipo, const TIPONODO &etiqueta, const TIPONODO &valor,
-                                          const TIPONODO &referencia, const TIPONODO &espacio ) {
-    NodoSimple<TIPONODO> *nuevoPtr = obtenerNuevoNodo(tipo,etiqueta, valor,referencia,espacio );
+                                          const TIPONODO &referencia, const TIPONODO &espacio, const TIPONODO &memoria ) {
+    NodoSimple<TIPONODO> *nuevoPtr = obtenerNuevoNodo(tipo,etiqueta, valor,referencia,espacio, memoria );
     if (estaVacia()){
         primeroPtr = ultimoPtr = nuevoPtr;
 
@@ -290,8 +290,8 @@ bool ListaSimple<TIPONODO>::estaVacia() const {
 
 template <typename TIPONODO>
 NodoSimple<TIPONODO> *ListaSimple<TIPONODO>::obtenerNuevoNodo(const TIPONODO &tipo,const TIPONODO &etiqueta,
-                                                              const TIPONODO &valor,const TIPONODO &referencia,const TIPONODO &espacio) {
-    return new NodoSimple<TIPONODO>(tipo, etiqueta,valor, referencia, espacio);
+                                                              const TIPONODO &valor,const TIPONODO &referencia,const TIPONODO &espacio, const TIPONODO &memoria) {
+    return new NodoSimple<TIPONODO>(tipo, etiqueta,valor, referencia, espacio, memoria);
 
 }
 template <typename TIPONODO>
@@ -338,10 +338,12 @@ void ListaSimple <TIPONODO>::imprimir() const {
     NodoSimple<TIPONODO> *tempPtr = primeroPtr;
 
     while (tempPtr != nullptr){
-        cout << tempPtr->valor << endl;
-        cout << tempPtr->valor << " ";
+        cout << tempPtr->tipo << endl;
         cout << tempPtr->etiqueta << " ";
-        cout << tempPtr->tipo << " ";
+        cout << tempPtr->valor << " ";
+        cout << tempPtr->cantidadReferencias << " ";
+        cout << tempPtr->espacioEnMemoria<< " ";
+        cout << tempPtr->numeroEnMemoria << " ";
         tempPtr = tempPtr->siguientePtr;
 
     }
@@ -356,8 +358,9 @@ json ListaSimple <TIPONODO>::ToJson(){
             std::string tipo;
             std::string etiqueta;
             std::string valor ;
-            std::string referencias;
-            std::string espacio;
+            std::string cantidadReferencias;
+            std::string espacioEnMemoria;
+            std::string numeroEnMemoria;
         };
 
 
@@ -381,7 +384,9 @@ json ListaSimple <TIPONODO>::ToJson(){
         lista["tipo"] = temptr->obtenerTipo();
         lista["etiqueta"] = temptr->obtenerEtiqueta();
         lista["valor"] = temptr->obtenerDatos();
-        lista["referencias"] = temptr->obtenerCantidadReferencias();
+        lista["cantidadReferencias"] = temptr->obtenerCantidadReferencias();
+        lista["espacioEnMemoria"] = temptr->obtenerEspacioMemoria();
+        lista["numeroEnMemoria"] = temptr->obtenerNumeroEnMemoria();
 
         //json array_not_object = json::array({lista});
 
@@ -389,7 +394,7 @@ json ListaSimple <TIPONODO>::ToJson(){
 
         total.push_back(lista);
 
-
+        lista = NULL;
 
         temptr = temptr->siguientePtr;
 

@@ -27,3 +27,11 @@ ListaSimple MemoryManage::AsiganorMemoria(ListaSimple listaSimple) {
     return listaSimple;
 
 }
+
+bool MemoryManage::MemoriaLLena(int referencia) {
+    if (referencia != nullptr) {
+        return true;
+    }else {
+        return false;
+    }
+}

@@ -22,10 +22,6 @@ public:
 
     bool MemoriaLLena(int referencia);
 
-
-
-
-
     int memoria;
 
 

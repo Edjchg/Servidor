@@ -21,12 +21,14 @@ ListaSimple<string> Parser::convertToObject(json objeto){
         std::string tipo;
         std::string etiqueta;
         std::string valor ;
-        std::string referencias;
-        std::string espacio;
+        std::string cantidadReferencias;
+        std::string espacioEnMemoria;
+        std::string numeroEnMemoria;
     };
     for (int posicion = 0; posicion < sizeof(objeto); posicion++){
         listaSimple.insertarFinal(objeto["tipo"].get<std::string>(),objeto["etiqueta"].get<std::string>(),
-                objeto["valor"].get<std::string>(),"",objeto["espacio"].get<std::string>());
+                objeto["valor"].get<std::string>(),objeto["cantidadReferencias"],objeto["espacioEnMemoria"].get<std::string>(),
+                        objeto["numeroEnMemoria"].get<std::string>());
     }
 
 return listaSimple;
