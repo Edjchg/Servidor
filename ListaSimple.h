@@ -34,14 +34,17 @@ public:
     void insertarPosicion( const TIPONODO &, const TIPONODO &);
     void editarPosicion(const TIPONODO &, const TIPONODO &);
     json ToJson();
+    ListaSimple<string> asignarMemoria(int**, int, int);
 
 
     NodoSimple <TIPONODO> *primeroPtr;
     NodoSimple <TIPONODO> *ultimoPtr;
     NodoSimple <TIPONODO> *obtenerNuevoNodo(const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &, const TIPONODO &);
 
-    template<typename TIPONODO>
+
     NodoSimple<TIPONODO> *getPrimero();
+
+
 };
 //Constructor
 template <typename TIPONODO >
@@ -405,5 +408,40 @@ json ListaSimple <TIPONODO>::ToJson(){
     //cout<<total<<endl;
     return total;
 }
+
+template <typename TIPONODO>
+ListaSimple<string> ListaSimple <TIPONODO>::asignarMemoria(int **memoria, int referencias, int posicion){
+    NodoSimple<TIPONODO> *temptr = primeroPtr;
+    while (temptr != nullptr){
+
+        if (referencias == 0){
+            cout<<"La memoria se ha acabado"<<endl;
+
+
+        }
+        if(temptr->tipo == "char"){
+            memoria[posicion] = new int (1);
+            temptr->setNumeroEnMemoria(&memoria[posicion]);
+            posicion++;
+            referencias --;
+        }else if(temptr->tipo == "float" or temptr->tipo == "int"){
+            memoria[posicion] = new int (4);
+            temptr->setNumeroEnMemoria(&memoria[posicion]);
+            posicion++;
+            referencias --;
+        }else if (temptr->tipo == "double" or temptr->tipo == "long"){
+            memoria[posicion] = new int(8);
+            temptr->setNumeroEnMemoria(&memoria[posicion]);
+            posicion;
+            referencias --;
+        }
+
+        temptr = temptr->siguientePtr;
+    }
+
+
+}
+
+
 
 #endif //PROYECTO1_LISTASIMPLE_H

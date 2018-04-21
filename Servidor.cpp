@@ -9,6 +9,12 @@
 /**
  * Inicializa el servidor
  */
+int espacio, referencias ;
+int posicion;
+int **memory;
+
+MemoryManage memoryManage;
+Parser parser;
 
 void Servidor::iniciar() {
     sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -18,9 +24,10 @@ void Servidor::iniciar() {
     servidor.sin_family = AF_INET;
     servidor.sin_addr.s_addr = INADDR_ANY;
     servidor.sin_port = htons(8080);
-    if (bind(sock, (struct sockaddr *) &servidor, sizeof(servidor)) < 0) {
-        std::cout << "Error: No se pudo iniciar el servidor" << std::endl;
-    }
+    //if (bind(sock, (struct sockaddr *) &servidor, sizeof(servidor)) < 0) {
+        //std::cout << "Error: No se pudo iniciar el servidor" << std::endl;
+   // }
+
     listen(sock, 3);
     c = sizeof(struct sockaddr_in);
     std::cout << "Esperando nuevas conexiones" << std::endl;
@@ -61,9 +68,8 @@ std::string Servidor::cleanMensaje(char* men) {
  * @return
  */
 void *Servidor::hiloConexion(void *socket) {
-    MemoryManage memoryManage;
-    Parser parser;
-    ListaSimple<string> listaSimple;
+
+    memoryManage.TomarMemoria(10);
 
     int sockPtr = *(int *) socket;
     int read_size;
@@ -84,15 +90,16 @@ void *Servidor::hiloConexion(void *socket) {
 
 
         limpio = cleanMensaje(client_message);
-        //parser.convertToObject(parser.StringToJson(limpio));
 
-        memoryManage.AsiganorMemoria(parser.convertToObject(parser.StringToJson(limpio))).ToJson().dump();
+        parser.toObject(limpio, memory, referencias, posicion).ToJson().dump();
+
+        //memoryManage.AsiganorMemoria(parser.convertToObject(parser.StringToJson(limpio))).ToJson().dump();
 
         //Repetidor de mensajes
 
         std::cout << limpio << std::endl;
-        write(sockPtr, limpio.data(), 1000); // contesta
-
+        //write(sockPtr, limpio.data(), 1000); // contesta
+        write(sockPtr, parser.toObject(limpio, memory, referencias, posicion).ToJson().dump().data(), 10000);
         //Colocar logica para tratar mensajes recibidoa
 
 

@@ -29,14 +29,15 @@ ListaSimple<string> Parser::convertToObject(json objeto){
         listaSimple.insertarFinal(objeto["tipo"].get<std::string>(),objeto["etiqueta"].get<std::string>(),
                 objeto["valor"].get<std::string>(),objeto["cantidadReferencias"],objeto["espacioEnMemoria"].get<std::string>(),
                         objeto["numeroEnMemoria"].get<std::string>());
+        objeto = NULL;
     }
 
 return listaSimple;
 }
 
-json Parser::StringToJson(string objetoJson) {
+ListaSimple<string> Parser::toObject(string objetoJson, int **memoria, int referencias, int posicion) {
         auto j2 = R"(objetoJson)"_json;
 
-        return j2;
+        return convertToObject(j2).asignarMemoria(memoria, referencias,posicion);
 
 }

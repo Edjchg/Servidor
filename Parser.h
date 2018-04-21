@@ -13,8 +13,9 @@ using json = nlohmann::json;
 class Parser {
 public:
     ListaSimple<std::string> convertToObject(json );
-    json StringToJson(string);
+    ListaSimple<string> StringToJson(string);
 
+    ListaSimple<string> toObject(string objetoJson, int **memoria, int referencias, int posicion);
 };
 
 

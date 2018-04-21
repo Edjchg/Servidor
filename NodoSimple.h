@@ -17,7 +17,7 @@ class NodoSimple {
 
 public:
 
-    NodoSimple (const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO);
+    NodoSimple (const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &,const TIPONODO &);
     TIPONODO obtenerDatos()                               const;
     TIPONODO obtenerTipo()                                const;
     TIPONODO obtenerEspacioMemoria()                      const;

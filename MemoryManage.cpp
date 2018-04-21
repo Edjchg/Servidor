@@ -8,28 +8,39 @@
 
 int referencias;
 int posicion;
-int *memory;
+int **memory;
+
 int MemoryManage::TomarMemoria(int espacio) {
-     memory = new int (espacio);
+     *memory = new int (espacio);
     referencias = espacio;
 
 
+
+    return 0;
 }
+/*
 template <typename TIPONODO>
 
-ListaSimple MemoryManage::AsiganorMemoria(ListaSimple listaSimple) {
-    NodoSimple<TIPONODO> *temp = listaSimple.primeroPtr;
+
+ ListaSimple MemoryManage::AsiganorMemoria(ListaSimple<string> * listaSimple) {
+    NodoSimple<TIPONODO> *temp = listaSimple->getPrimero();
     while(temp != nullptr){
         referencias --;
+        if(temp->tipo == "char"){
+            //memory[posicion] = new char[12];
+            temp->setNumeroEnMemoria(memory[posicion]);
+            posicion++;
+        }
         temp->setNumeroEnMemoria(memory[posicion]);
         posicion++;
+        temp = temp->siguientePtr;
     }
-    return listaSimple;
+    return ListaSimple (*listaSimple);
 
 }
-
+*/
 bool MemoryManage::MemoriaLLena(int referencia) {
-    if (referencia != nullptr) {
+    if (referencia != 0) {
         return true;
     }else {
         return false;

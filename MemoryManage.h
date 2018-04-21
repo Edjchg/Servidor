@@ -18,13 +18,13 @@ public:
 
     int TomarMemoria(int espacio);
 
-    ListaSimple AsiganorMemoria(ListaSimple );
+
 
     bool MemoriaLLena(int referencia);
 
     int memoria;
 
-
+    //ListaSimple AsiganorMemoria(ListaSimple<string> * listaSimple);
 };
 
 
