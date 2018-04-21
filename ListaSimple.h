@@ -10,7 +10,7 @@
 
 
 #include "NodoSimple.h"
-
+#include "sstream"
 #include "json.hpp"
 
 using nlohmann::json;
@@ -34,7 +34,7 @@ public:
     void insertarPosicion( const TIPONODO &, const TIPONODO &);
     void editarPosicion(const TIPONODO &, const TIPONODO &);
     json ToJson();
-    ListaSimple<string> asignarMemoria(int**, int, int);
+    void asignarMemoria(int **, int, int);
 
 
     NodoSimple <TIPONODO> *primeroPtr;
@@ -410,30 +410,60 @@ json ListaSimple <TIPONODO>::ToJson(){
 }
 
 template <typename TIPONODO>
-ListaSimple<string> ListaSimple <TIPONODO>::asignarMemoria(int **memoria, int referencias, int posicion){
+void ListaSimple <TIPONODO>::asignarMemoria(int **memoria, int referencias, int posicion) {
     NodoSimple<TIPONODO> *temptr = primeroPtr;
-    while (temptr != nullptr){
+    //int **valor;
+    stringstream valor;
+    while (temptr != nullptr) {
 
-        if (referencias == 0){
-            cout<<"La memoria se ha acabado"<<endl;
+        if (referencias == 0) {
+            cout << "La memoria se ha acabado" << endl;
 
 
         }
-        if(temptr->tipo == "char"){
-            memoria[posicion] = new int (1);
-            temptr->setNumeroEnMemoria(&memoria[posicion]);
+        if (temptr->tipo == "char") {
+
+
+            valor << &memoria[posicion]<<endl;
+
+            string newString = valor.str();
+
+
+
+            //std::string valor1 = std::to_string(&memoria[posicion]);
+            temptr->setNumeroEnMemoria(newString);
+            //temptr->setNumeroEnMemoria();
+            //temptr->setNumeroEnMemoria("&memoria[posicion]");
             posicion++;
-            referencias --;
-        }else if(temptr->tipo == "float" or temptr->tipo == "int"){
-            memoria[posicion] = new int (4);
-            temptr->setNumeroEnMemoria(&memoria[posicion]);
+            referencias--;
+
+
+        } else if (temptr->tipo == "float" or temptr->tipo == "int") {
+
+            valor <<&memoria[posicion]<<endl;
+            string newString = valor.str();
+            //memoria[posicion] = reinterpret_cast<string *>(new int (4));
+
+            //valor = reinterpret_cast<char >(&memoria[posicion]);
+
+            //temptr->setNumeroEnMemoria(&memoria[posicion]);
+            //temptr->setNumeroEnMemoria(valor);
+            temptr->setNumeroEnMemoria(newString);
             posicion++;
-            referencias --;
-        }else if (temptr->tipo == "double" or temptr->tipo == "long"){
-            memoria[posicion] = new int(8);
-            temptr->setNumeroEnMemoria(&memoria[posicion]);
-            posicion;
-            referencias --;
+            referencias--;
+
+
+        } else if (temptr->tipo == "double" or temptr->tipo == "long") {
+            valor <<&memoria[posicion]<<endl;
+            string newString = valor.str();
+            //memoria[posicion] = reinterpret_cast<string *>(new int(8));
+
+            //valor = reinterpret_cast<char >(&memoria[posicion]);
+            temptr->setNumeroEnMemoria(newString);
+            //temptr->setNumeroEnMemoria(valor);
+            posicion++;
+            referencias--;
+
         }
 
         temptr = temptr->siguientePtr;

@@ -35,9 +35,10 @@ ListaSimple<string> Parser::convertToObject(json objeto){
 return listaSimple;
 }
 
-ListaSimple<string> Parser::toObject(string objetoJson, int **memoria, int referencias, int posicion) {
+json Parser::toJson(string objetoJson) {
         auto j2 = R"(objetoJson)"_json;
 
-        return convertToObject(j2).asignarMemoria(memoria, referencias,posicion);
+
+        return j2;
 
 }

@@ -9,12 +9,12 @@
 /**
  * Inicializa el servidor
  */
-int espacio, referencias ;
+int espacio = 100 ;
+int referencias = 100;
 int posicion;
 int **memory;
 
-MemoryManage memoryManage;
-Parser parser;
+
 
 void Servidor::iniciar() {
     sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -68,8 +68,9 @@ std::string Servidor::cleanMensaje(char* men) {
  * @return
  */
 void *Servidor::hiloConexion(void *socket) {
+    memory= new int*[100];
+    Parser parser;
 
-    memoryManage.TomarMemoria(10);
 
     int sockPtr = *(int *) socket;
     int read_size;
@@ -91,15 +92,28 @@ void *Servidor::hiloConexion(void *socket) {
 
         limpio = cleanMensaje(client_message);
 
-        parser.toObject(limpio, memory, referencias, posicion).ToJson().dump();
+
 
         //memoryManage.AsiganorMemoria(parser.convertToObject(parser.StringToJson(limpio))).ToJson().dump();
 
         //Repetidor de mensajes
 
         std::cout << limpio << std::endl;
+        limpio += delimitador;
+
+        json j = parser.toJson(limpio);
+
+        ListaSimple<string> listaSimple = parser.convertToObject(j);
+        listaSimple.asignarMemoria(memory,referencias, posicion);
+
+        json j2 = listaSimple.ToJson();
+
+        string lista = j2.dump();
+
+
+
         //write(sockPtr, limpio.data(), 1000); // contesta
-        write(sockPtr, parser.toObject(limpio, memory, referencias, posicion).ToJson().dump().data(), 10000);
+        write(sockPtr, lista.data(), 10000);
         //Colocar logica para tratar mensajes recibidoa
 
 
@@ -110,4 +124,5 @@ void *Servidor::hiloConexion(void *socket) {
             std::cout << "Error: No se recibio un dato valido" << std::endl;
         }
     }
+
 }

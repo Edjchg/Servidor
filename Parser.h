@@ -15,7 +15,7 @@ public:
     ListaSimple<std::string> convertToObject(json );
     ListaSimple<string> StringToJson(string);
 
-    ListaSimple<string> toObject(string objetoJson, int **memoria, int referencias, int posicion);
+    json toJson(string objetoJson);
 };
 
 

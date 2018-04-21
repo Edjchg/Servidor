@@ -6,12 +6,13 @@
 #include "ListaSimple.h"
 #include "NodoSimple.h"
 
-int referencias;
-int posicion;
-int **memory;
+
 
 int MemoryManage::TomarMemoria(int espacio) {
-     *memory = new int (espacio);
+    int referencias;
+    int posicion;
+    int **memory;
+
     referencias = espacio;
 
 
